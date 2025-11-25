@@ -1,6 +1,6 @@
 rootProject.name = "lab2-sidey383"
 
-include("Producer")
 include("Protocol")
+include("Producer")
 include("Worker")
 include("Aggregator")

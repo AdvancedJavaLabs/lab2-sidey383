@@ -4,3 +4,9 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+  worker:
+    image: lab2/worker:latest
+  aggregator:
+    image: lab2/aggregator:latest
+  producer:
+    image: lab2/aggregator:latest

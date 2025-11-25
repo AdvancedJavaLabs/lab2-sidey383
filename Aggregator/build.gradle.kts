@@ -1,15 +1,16 @@
-plugins {
-    id("org.springframework.boot")
-}
-
 dependencies {
     implementation(project(":Protocol"))
-
-    implementation("org.springframework.boot:spring-boot-starter-logging")
-    implementation("org.apache.activemq:activemq-broker:6.2.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
 springBoot {
     mainClass.set("org.itmo.MainKt")
+}
+
+tasks.bootBuildImage {
+    createdDate = "now"
+    imageName = "lab2/${project.name.lowercase()}:${project.version}"
+    tags.add("lab2/${project.name.lowercase()}:latest")
+    environment = mapOf(
+        "BP_JVM_VERSION" to "17"
+    )
 }
