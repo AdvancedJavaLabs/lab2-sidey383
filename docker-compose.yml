@@ -1,12 +1,48 @@
 services:
   rabbitmq:
     image: rabbitmq:3.10.7-management
+    networks:
+      - lab2
     ports:
       - "15672:15672"
-      - "5672:5672"
   worker:
     image: lab2/worker:latest
+    depends_on:
+      - rabbitmq
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - lab2
+    environment:
+      RABBIT_MQ_HOST: rabbitmq
+    deploy:
+      replicas: 4
   aggregator:
     image: lab2/aggregator:latest
+    depends_on:
+      - rabbitmq
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - lab2
+    environment:
+      RABBIT_MQ_HOST: rabbitmq
   producer:
-    image: lab2/aggregator:latest
+    image: lab2/producer:latest
+    depends_on:
+      - rabbitmq
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - lab2
+    environment:
+      RABBIT_MQ_HOST: rabbitmq
+    ports:
+      - "8180:8080"
+
+networks:
+  lab2:
+    driver: bridge

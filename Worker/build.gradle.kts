@@ -18,6 +18,6 @@ tasks.bootBuildImage {
     imageName = "lab2/${project.name.lowercase()}:${project.version}"
     tags.add("lab2/${project.name.lowercase()}:latest")
     environment = mapOf(
-        "BP_JVM_VERSION" to "17"
+        "BP_JVM_VERSION" to "25"
     )
 }
